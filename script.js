@@ -155,10 +155,12 @@ function setGamePoints() {
 	if (player.score == 10) {
 		alert('player win!');
 		gameState = 'ended';
+		setGameElements();
 
 
 	} else if (computer.score == 10) {
 		alert('You lose!');
 		gameState = 'ended';
+		setGameElements();
 	}
 }
