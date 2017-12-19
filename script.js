@@ -2,12 +2,9 @@
 var newGameBtn = document.getElementById('js-newGameButton');
 newGameBtn.addEventListener('click', newGame);
 
-
-
 var pickRock = document.getElementById('js-playerPick_rock'), //guzik kamień
 	pickPaper = document.getElementById('js-playerPick_paper'), //guzik papier
 	pickScissors = document.getElementById('js-playerPick_scissors'); //guzik noźyczki
-
 
 // przypisanie wywołania funkcji na dany wybór guzika
 pickRock.addEventListener('click', function() {
@@ -20,8 +17,6 @@ pickScissors.addEventListener('click', function() {
 	playerPick('scissors')
 });
 
-
-
 //wartości początkowe gry, STAN GRY
 var gameState = 'notStarted', //started // ended
 	player = {
@@ -31,7 +26,6 @@ var gameState = 'notStarted', //started // ended
 	computer = {
 		score: 0
 	};
-
 
 //funkcja wpływająca na gameState POWYŻEJ
 function setGameElements() {
@@ -51,25 +45,15 @@ function setGameElements() {
 	}
 }
 
-
-//setGameElements(); //wywołanie funkcji powyżej// Uwaga!!!!!!!!!!!!!!!!!!!
-
-
-
 //przypisanie zmiennych do id kontenerów POWYŹEJ
 var newGameElem = document.getElementById('js-newGameElement'), //kontener z przzyciskiem new game
 	pickElem = document.getElementById('js-playerPickElement'), //kontener w wyborami kamień, papier, noźyczki
 	resultsElem = document.getElementById('js-resultsTableElement'); //kontener w info gracz, punkty, wybór
 
-
-
-
 // zmienne przypisane do wyświetlania punktów gracza, imienia gracza i pkt komputera czyli <SPAN'y>
 var playerPointsElem = document.getElementById('js-playerPoints'),
 	playerNameElem = document.getElementById('js-playerName'),
 	computerPointsElem = document.getElementById('js-computerPoints');
-
-
 
 // ta funkcja uruchamia się kiedy klikniemy NEW GAME   
 function newGame() {
@@ -84,11 +68,11 @@ function newGame() {
 	}
 }
 
-
 //funkcja wyboru gracza
 function playerPick(playerPick) {
 	console.log(playerPick);
 }
+
 //funkcja wyboru kompa
 function getComputerPick() {
 	var possiblePicks = ['rock', 'paper', 'scissors'];
@@ -107,21 +91,18 @@ function playerPick(playerPick) {
 
 	playerPickElem.innerHTML = playerPick;
 	computerPickElem.innerHTML = computerPick;
-
 	checkRoundWinner(playerPick, computerPick); //wywołanie funkcji poniżej
 }
-
 
 //funkcja określająca wygraną
 function checkRoundWinner(playerPick, computerPick) {
 	playerResultElem.innerHTML = computerResultElem.innerHTML = ''; //wyzerownanie wyniku
-
-
-
 	var winnerIs = 'player';
 
 	if (playerPick == computerPick) {
 		winnerIs = 'noone'; // remis
+		playerResultElem.innerHTML = "remis!";
+		computerResultElem.innerHTML = "remis!";
 	} else if (
 		(computerPick == 'rock' && playerPick == 'scissors') ||
 		(computerPick == 'scissors' && playerPick == 'paper') ||
@@ -153,13 +134,12 @@ function setGamePoints() {
 	computerPointsElem.innerHTML = computer.score;
 	console.log("setGamePoints zadziałało");
 	if (player.score == 10) {
-		alert('player win!');
+		alert('Wygrałeś!!');
 		gameState = 'ended';
 		setGameElements();
 
-
 	} else if (computer.score == 10) {
-		alert('You lose!');
+		alert('Przegrałeś!');
 		gameState = 'ended';
 		setGameElements();
 	}
