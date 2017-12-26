@@ -26,7 +26,9 @@ var gameState = 'notStarted', //started // ended
 	computer = {
 		score: 0
 	};
-
+var newGameElem = document.getElementById('js-newGameElement'), //kontener z przzyciskiem new game
+	pickElem = document.getElementById('js-playerPickElement'), //kontener w wyborami kamień, papier, noźyczki
+	resultsElem = document.getElementById('js-resultsTableElement'); //kontener w info gracz, punkty, wybór
 //funkcja wpływająca na gameState POWYŻEJ
 function setGameElements() {
 	switch (gameState) {
@@ -43,12 +45,8 @@ function setGameElements() {
 			pickElem.style.display = 'none';
 			resultsElem.style.display = 'none';
 	}
-}
-
-//przypisanie zmiennych do id kontenerów POWYŹEJ
-var newGameElem = document.getElementById('js-newGameElement'), //kontener z przzyciskiem new game
-	pickElem = document.getElementById('js-playerPickElement'), //kontener w wyborami kamień, papier, noźyczki
-	resultsElem = document.getElementById('js-resultsTableElement'); //kontener w info gracz, punkty, wybór
+};
+setGameElements();
 
 // zmienne przypisane do wyświetlania punktów gracza, imienia gracza i pkt komputera czyli <SPAN'y>
 var playerPointsElem = document.getElementById('js-playerPoints'),
@@ -57,6 +55,7 @@ var playerPointsElem = document.getElementById('js-playerPoints'),
 
 // ta funkcja uruchamia się kiedy klikniemy NEW GAME   
 function newGame() {
+
 	player.name = prompt('Please enter your name', 'imię gracza'); //przypisanie nazwy gracza do objektu player = {name: "..."}
 	if (player.name) { //jeśli podamy nazwę ustawia wynik w objekcie {score: 0}
 		player.score = computer.score = 0;
@@ -68,10 +67,6 @@ function newGame() {
 	}
 }
 
-//funkcja wyboru gracza
-function playerPick(playerPick) {
-	console.log(playerPick);
-}
 
 //funkcja wyboru kompa
 function getComputerPick() {
@@ -129,18 +124,32 @@ function checkRoundWinner(playerPick, computerPick) {
 	setGamePoints(playerScore, compPoints);
 }
 
+function end() {
+	gameState = status;
+	if(status = 'ended') {
+		playerResultElem.innerHTML = computerResultElem.innerHTML = '';
+
+		playerPickElem.innerHTML = computerPickElem.innerHTML = 'losuj ponownie';
+		setGameElements();
+
+	}
+}
+
 function setGamePoints() {
 	playerPointsElem.innerHTML = player.score;
 	computerPointsElem.innerHTML = computer.score;
 	console.log("setGamePoints zadziałało");
-	if (player.score == 10) {
+	if (player.score == 4) {
 		alert('Wygrałeś!!');
 		gameState = 'ended';
-		setGameElements();
+		end();
 
-	} else if (computer.score == 10) {
+	} else if (computer.score == 4) {
 		alert('Przegrałeś!');
 		gameState = 'ended';
-		setGameElements();
+		end();
 	}
 }
+
+
+
